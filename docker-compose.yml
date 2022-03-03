@@ -1,0 +1,67 @@
+version: "3.7"
+
+services:
+  web:
+    build: ./web
+
+    volumes:
+      - ./web:/usr/src/app
+
+    expose:
+      - "8000"
+
+    networks:
+      - app_network
+
+    env_file:
+      - .env
+
+    stdin_open: true
+    tty: true
+
+    restart: always
+
+    command: ./run_django.sh
+
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        ENV: dev
+
+    depends_on:
+      - web
+
+    ports:
+      - "80:80"
+
+    networks:
+      - app_network
+
+    restart: always
+
+  postgres:
+    build: ./postgres
+
+    env_file:
+      - .env
+
+    expose:
+      - "5432"
+
+    volumes:
+      - app-pgdata:/var/lib/postgresql/data
+
+    tty: true
+    stdin_open: true
+
+    networks:
+      - app_network
+
+    restart: always
+
+networks:
+  app_network:
+
+volumes:
+  app-pgdata:
