@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<title>Refugees Helper</title>
+
+		<meta charset='UTF-8'>
+    	<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+		<meta property='og:url' content='https://refugeesHelper.eu'/>
+		<!-- <meta property='og:image' content='image'/> -->
+		<meta property='og:title' content='Refugees Helper, find your primary needings'/>
+		<meta property='og:description' content='Find your primary needings, if you are escaping from war or something else this will help you finding where to eat'/>
+
+		<!-- LIBRARIES -->
+		<script src='{% static "node_modules/jquery/dist/jquery.min.js" %}'></script>
+		<script src='{% static "node_modules/bootstrap/dist/js/bootstrap.min.js" %}'></script>
+		<!-- LIBRARIES END -->
+
+		<!-- STYLES -->
+		<link rel='stylesheet' href='{% static "node_modules/bootstrap/dist/css/bootstrap.min.css" %}'/>
+		<link rel='stylesheet' href='{% static "css/refugeesHelper.css" %}'/>
+		<!-- STYLES END -->
+
+		{% block head %}
+    	{% endblock %}
+	</head>
+	<body>
+		{% csrf_token %}
+		{% include 'includes/navbar.html' %}
+		<div class="container refugessHelper-main">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>
+
+{% block script %}
+{% endblock %}

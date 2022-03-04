@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="refugeesHelper-homepage">
+		<div class="refugeesHelper-title">
+			<h1>Choose what you need or what you can offer</h1>
+		</div>
+		<div class="flex-column flex-sm-row align-items-center align-items-sm-start justify-content-start justify-content-sm-evenly refugeesHelper-homepage-actions">
+			<a href="{% url 'get-or-give' 'food' %}" class="refugeesHelper-homepage-button-container">
+				<!-- <div class="refugeesHelper-homepageLink-content">
+					<h2>FOOD</h2>
+				</div> -->
+				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
+					Food
+				</button>
+			</a>
+			<a href="{% url 'get-or-give' 'house' %}" class="refugeesHelper-homepage-button-container">
+				<!-- <div class="refugeesHelper-homepageLink-content">
+					<h2>HOUSE</h2>
+				</div> -->
+				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
+					House
+				</button>
+			</a>
+			<a href="{% url 'get-or-give' 'health' %}" class="refugeesHelper-homepage-button-container">
+				<!-- <div class="refugeesHelper-homepageLink-content">
+					<h2>HEALTH</h2>
+				</div> -->
+				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
+					Health
+				</button>
+			</a>
+		</div>
+	</div>
+{% endblock %}

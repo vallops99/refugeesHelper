@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import (
+    homepage,
+    get_or_give,
+    handle_help
+)
 
 urlpatterns = [
     path('f3sa0l/', admin.site.urls),
+    path('', homepage, name='homepage'),
+    path('<str:category>', get_or_give, name='get-or-give'),
+    path('<str:category>/<str:help_type>', handle_help, name='handle_help')
 ]

@@ -1,0 +1,38 @@
+// out: ../css/refugeesHelper.css, compress: true
+
+@import '_constants.less';
+
+html {
+	width: 100%;
+	height: 100%;
+
+	body {
+		width: 100%;
+		height: 100%;
+
+		background-image: linear-gradient(@UKRAIN_BLUE, @UKRAIN_YELLOW);
+
+		.refugessHelper-main {
+			width: 100%;
+			height:	~'calc(100% - 76px)';
+
+			@import '_homepage.less';
+			@import '_choose_help.less';
+		}
+
+		.refugeesHelper-title {
+			height: 30%;
+	
+			display: flex;
+			align-items: center;
+	
+			text-align: center;
+			color: white;
+		}
+
+		.refugeesHelper-button {
+			width: 150px;
+			margin: 16px;
+		}
+	}
+}
