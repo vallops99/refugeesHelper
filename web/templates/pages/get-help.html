@@ -1,1 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+	<script src="{% static 'node_modules/mapbox-gl/dist/mapbox-gl.js' %}"></script>
+	<link href="{% static 'node_modules/mapbox-gl/dist/mapbox-gl.css' %}" rel='stylesheet' />
+{% endblock %}
+
+{% block content %}
+	<div class="refugeesHelper-get-help">
+		<div class="refugeesHelper-title">
+			<h1>{{ category }}</h1>
+		</div>
+		<div id='map' class="refugeesHelper-map"></div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script>
+		mapboxgl.accessToken = "{{ MAPBOX_TOKEN }}";
+		mapboxgl.customMapStyle = "{{ map_style }}";
+		window.category = "{{ category }}";
+	</script>
+	<script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

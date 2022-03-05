@@ -41,6 +41,8 @@ def handle_help(request, category, help_type):
 		request,
 		template,
 		{
-			category: category
+			'category': category,
+			'map_style': settings.MAPSTYLE_BY_CATEGORY[category],
+			'MAPBOX_TOKEN': settings.MAPBOX_TOKEN
 		}
 	)
