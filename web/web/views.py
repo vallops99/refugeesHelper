@@ -20,7 +20,7 @@ def get_or_give(request, category):
 
 	return render(
 		request,
-		'pages/choose_help.html',
+		'pages/choose-help.html',
 		{
 			'category': category
 		}
