@@ -4,6 +4,7 @@
 
 html {
 	width: 100%;
+	min-height: 100%;
 	height: 100%;
 
 	body {
@@ -14,32 +15,71 @@ html {
 
 		.refugessHelper-main {
 			width: 100%;
-			height:	~'calc(100% - 76px)';
+			// height:	~'calc(100% - 76px)';
+			height: ~'calc(100% - 76px)';
 
-			padding: 16px 0;
+			padding: 1rem 0;
 
 			@import '_homepage.less';
 			@import '_choose_help.less';
 			@import '_get_help.less';
+			@import '_give_help.less';
 		}
 
 		.refugeesHelper-title {
-			height: 30%;
+			width: 80%;
+			height: 200px;
 	
 			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			align-items: center;
-	
-			text-align: center;
-			color: white;
+
+			background-color: rgba(255, 255, 255, .3);
+			color: black;
+
+			&.no-capitalize {
+				h1, h2 {
+					text-transform: unset;
+				}
+			}
 
 			h1, h2 {
+				padding: 0 1rem;
+				margin-bottom: 1rem;
+
+				text-align: center;
 				text-transform: capitalize;
+
+				&:only-child {
+					margin-bottom: 0;
+				}
 			}
 		}
 
-		.refugeesHelper-button {
-			width: 150px;
-			margin: 16px;
+		.refugeesHelper-actions {
+			width: 100%;
+			height: fit-content;
+	
+			display: flex;
+	
+			margin-top: 1rem;
+			padding: 1rem;
+	
+			background-color: rgba(255,255,255,0.3);
+	
+			.refugeesHelper-button-container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+	
+				text-decoration: none;
+
+				.refugeesHelper-button {
+					width: 150px;
+					margin: 16px;
+				}
+			}
 		}
 	}
 }

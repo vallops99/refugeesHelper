@@ -1,10 +1,60 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block head %}
 {% endblock %}
 
 {% block content %}
+	<div class="refugeesHelper-give-help">
+		<div class="refugeesHelper-title no-capitalize">
+			<h1>Tell us how can you provide {{ category }}</h1>
+			<p>
+				We will double check the form and then publish your help-giving place, if pertinent.
+			</p>
+			<p>
+				We will need your contacts in order to double check, so please leave real phone number and email.
+			</p>
+		</div>
+		<div class="refugeesHelper-actions refugeesHelper-give-help-form">
+			<form action="{% url 'give-help' %}">
+				<div class="mb-3">
+					<label for="user-name" class="form-label">Name</label>
+					<input type="text" class="form-control" id="user-name" aria-describedby="Please, provide your real name">
+				</div>
+				<div class="mb-3">
+					<label for="user-surname" class="form-label">Surname</label>
+					<input type="text" class="form-control" id="user-surname" aria-describedby="Please, provide your real surname">
+				</div>
+				<div class="mb-3">
+					<label for="user-email" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="user-email" aria-describedby="Please, provide your real email">
+					<div id="emailHelp" class="form-text">
+						The email will be used from us to contact you in case we need to confirm your help-giving place. Later on, will be used by the users whom need help to check if you're available to give help.
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="user-phone-number" class="form-label">Phone number</label>
+					<input type="tel" class="form-control" id="user-phone-number" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocorret="on">
+					<div id="phoneHelp" class="form-text">
+						Insert your phone number, min
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="user-subcategory" class="form-label">Subcategory</label>
+					<select id="user-subcategory" class="form-select" aria-label="Choose a subcategory of {{ category }}">
+						{% for category in subcategories %}
+							<option value="{{ category.subcategory }}">{{ category.subcategory }}</option>
+						{% endfor %}
+						<option value="other">Other...</option>
+					</select>			
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
 {% endblock %}
 
 {% block script %}
+	<script src="{% static 'js/give-help-form.js' %}"></script>
 {% endblock %}

@@ -6,6 +6,12 @@ CATEGORIES = [
 	'health'
 ]
 
+CHOICES_CATEGORIES = [
+	('food', 'Food'),
+	('house', 'House'),
+	('health', 'Health')
+]
+
 TYPE_OF_HELP = [
 	'get',
 	'give'

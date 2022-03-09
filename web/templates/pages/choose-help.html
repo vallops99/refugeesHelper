@@ -5,15 +5,15 @@
 		<div class="refugeesHelper-title refugeesHelper-choose-title">
 			<h1>{{ category }}</h1>
 		</div>
-		<div class="flex-column flex-sm-row align-items-center align-items-sm-start justify-content-start justify-content-sm-evenly refugeesHelper-choose-help-content">
-			<div class="refugeesHelper-help">
+		<div class="flex-column flex-sm-row align-items-center align-items-sm-start justify-content-start justify-content-sm-evenly refugeesHelper-actions">
+			<div class="refugeesHelper-help refugeesHelper-button-container">
 				<a href="{% url 'handle_help' category 'get' %}">
 					<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
 						Get Help
 					</button>
 				</a>
 			</div>
-			<div class="refugeesHelper-help">
+			<div class="refugeesHelper-help refugeesHelper-button-container">
 				<a href="{% url 'handle_help' category 'give' %}">
 					<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
 						Give Help

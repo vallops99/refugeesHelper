@@ -1,17 +1,47 @@
 "use strict";
 
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+const minConsideredMovement = 130;
+// [TODO] Find a prettier way
+// Weird stuff, but I hadn't find a quickest way of calculating the movement
+// of the user over the map to understand when the "where I am point" is
+// near to be out of map.
+const coefficientsOfMovement = [
+	1,       // 0
+	2,       // 1
+	4,       // 2
+	8,       // 3
+	16,      // 4
+	32,      // 5
+	64,      // 6
+	128,     // 7
+	256,     // 8
+	312,     // 9
+	624,     // 10
+	1248,    // 11
+	2496,    // 12
+	4992,    // 13
+	9984,    // 14
+	19968,   // 15
+	39936,   // 16
+	79872,   // 17
+	159744,  // 18
+	319488,  // 19
+	638976,  // 20
+	1277952, // 21
+	2555904  // 22
+];
 
 class MapboxButtonControl {
 	constructor({
 		className = '',
-		title = '',
 		icon = '',
+		params = [],
 		eventHandler = () => {}
 	}) {
 		this._className = className;
-		this._title = title;
 		this._icon = icon;
+		this._params = params;
 		this._eventHandler = eventHandler;
 	}
 
@@ -19,9 +49,8 @@ class MapboxButtonControl {
 		this._btn = document.createElement('button');
 		this._btn.className = 'mapboxgl-ctrl-icon ' + this._className;
 		this._btn.type = 'button';
-		this._btn.title = this._title;
 		this._btn.onclick = (sender) => {
-			this._eventHandler(map);
+			this._eventHandler(map, ...this._params);
 		}
 
 		if (this._icon) {
@@ -61,19 +90,25 @@ function createMap() {
 	).addControl(
 		new MapboxButtonControl({
 			className: 'refugeesHelper-center-location',
-			title: 'Recenter with your location',
 			icon: 'fas fa-location-arrow',
+			params: [true],
 			eventHandler: startFollowingUser
 		})
+	).addControl(
+		new mapboxgl.FullscreenControl(),
+		'bottom-right'
 	);
 
-	map.on('drag', stopFollowingUser);
+	map.on('drag', () => stopFollowingUser(map));
+	map.on('resize', () => checkFullScreen(map));
 
 	return map;
 }
 
-function setUserPositionOnMap(map, userLongLat) {
+function setUserPositionOnMap(map, newCoords, force = false) {
 	const constantId = 'user-marker-id';
+
+	map.lastUserCoords = newCoords;
 
 	let el = document.getElementById(constantId);
 
@@ -84,7 +119,7 @@ function setUserPositionOnMap(map, userLongLat) {
 	}
 
 	new mapboxgl.Marker(el).setLngLat(
-		userLongLat
+		newCoords
 	).addTo(map);
 
 	// [TODO] Use this function only when the movement from last flyTo
@@ -97,13 +132,35 @@ function setUserPositionOnMap(map, userLongLat) {
 		map.refugeesAlreadyFlew = true;
 	}
 
-	map.flyTo({
-		center: userLongLat,
-		zoom: zoom
-	});
+	const coefficientOfMovement = calcScalarMovement(map);
+
+	if (coefficientOfMovement > minConsideredMovement || force) {
+		map.flyTo({
+			center: newCoords,
+			zoom: zoom
+		});
+	}
 }
 
-function startFollowingUser(map) {
+// Returns a number that describes how much the user moved around the map
+// This is used to avoid firing the flyTo function or to keep tracing the
+// user movements if it moved the map of few pixels.
+function calcScalarMovement(map) {
+	const currentPosition = map.getCenter();
+
+	// Zoom could be decimal, so we round it to get an index
+	const coeff = coefficientsOfMovement[Math.round(map.getZoom())];
+
+	let longDiff = currentPosition.lng * coeff - parseFloat(map.lastUserCoords[0]) * coeff;
+	longDiff = (longDiff < 0) ? longDiff * -1 : longDiff;
+
+	let latsDiff = currentPosition.lat * coeff - parseFloat(map.lastUserCoords[1]) * coeff;
+	latsDiff = (latsDiff < 0) ? latsDiff * -1 : latsDiff;
+
+	return longDiff + latsDiff;
+}
+
+function startFollowingUser(map, forceFly = false) {
 	if (!map) return;
 
 	let userLongitude = window.sessionStorage.getItem('last-user-longitude');
@@ -114,7 +171,8 @@ function startFollowingUser(map) {
 			[
 				userLongitude,
 				userLatitude
-			]
+			],
+			forceFly
 		);
 	}
 
@@ -147,16 +205,22 @@ function startFollowingUser(map) {
 	}, (error) => console.log(error), options);
 }
 
-function stopFollowingUser() {
+function stopFollowingUser(map) {
 	if (!window.followingIdHandler) return;
+	console.log(calcScalarMovement(map));
+	if (calcScalarMovement(map) < minConsideredMovement) return;
 
 	navigator.geolocation.clearWatch(window.followingIdHandler);
 
 	window.followingIdHandler = null;
 }
 
+function checkFullScreen(map) {
+
+}
+
 (function() {
 	const map = createMap();
 
-	startFollowingUser(map);
+	startFollowingUser(map, true);
 })();
