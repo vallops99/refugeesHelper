@@ -7,7 +7,7 @@ const minConsideredMovement = 130;
 // of the user over the map to understand when the "where I am point" is
 // near to be out of map.
 const coefficientsOfMovement = [
-	1,       // 0
+	1,       // 0 -> Zoom value
 	2,       // 1
 	4,       // 2
 	8,       // 3
@@ -99,8 +99,8 @@ function createMap() {
 		'bottom-right'
 	);
 
+	map.on('click', (event) => onMapClick(event, map));
 	map.on('drag', () => stopFollowingUser(map));
-	map.on('resize', () => checkFullScreen(map));
 
 	return map;
 }
@@ -215,8 +215,22 @@ function stopFollowingUser(map) {
 	window.followingIdHandler = null;
 }
 
-function checkFullScreen(map) {
+function onMapClick(event, map) {
+	console.log(event);
+	let poi = map.queryRenderedFeatures(event.point).filter(
+		val => val.sourceLayer === "poi_label"
+	);
 
+	if (poi.length < 1) return;
+	poi = poi[0];
+
+	new mapboxgl.Popup(
+		{ offset: [0, -15] }
+	).setLngLat(
+		event.lngLat
+	).setHTML(
+		`<h3 class="text-center">${poi.properties.type}</h3><p class="text-center">${poi.properties.name}</p><a href="http://www.google.com/maps/place/${event.lngLat.lat},${event.lngLat.lng}" target="_blank"><button class="btn btn-primary" type="button">Get route on google Maps</button></a>`
+	).addTo(map);
 }
 
 (function() {

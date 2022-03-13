@@ -3,33 +3,99 @@
 {% block content %}
 	<div class="refugeesHelper-homepage">
 		<div class="refugeesHelper-title refugeesHelper-homepage-title no-capitalize p-3 p-sm-0">
-			<h1>Choose what you need or what you can offer</h1>
+			<h2 class="display-3">Choose your needings or contribute</h2>
+			<p class="lead text-muted text-center">
+				Follow the site journey and find what you need or how you can contribute.
+			</p>
 		</div>
-		<div class="flex-column flex-sm-row align-items-center align-items-sm-start justify-content-start justify-content-sm-evenly refugeesHelper-actions">
-			<a href="{% url 'get-or-give' 'food' %}" class="refugeesHelper-button-container">
-				<!-- <div class="refugeesHelper-homepageLink-content">
-					<h2>FOOD</h2>
-				</div> -->
+		<div class="flex-column flex-md-row align-items-center refugeesHelper-actions">
+			<div class="card card-blog card-background" data-animation="zooming">
+				<div class="full-background" style="background-image: url('/static/images/food-card.jpg')"></div>
+				<a href="{% url 'get-or-give' 'food' %}">
+				  	<div class="card-body">
+						<div class="content-bottom">
+							<h6 class="card-category text-white opacity-8">Follow to choose help</h6>
+							<h5 class="card-title">Food</h5>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="card card-blog card-background" data-animation="zooming">
+				<div class="full-background" style="background-image: url('/static/images/house-card.jpg')"></div>
+				<a href="{% url 'get-or-give' 'house' %}">
+				  	<div class="card-body">
+						<div class="content-bottom">
+							<h6 class="card-category text-white opacity-8">Follow to choose help</h6>
+							<h5 class="card-title">House</h5>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="card card-blog card-background" data-animation="zooming">
+				<div class="full-background" style="background-image: url('/static/images/health-card.jpg')"></div>
+				<a href="{% url 'get-or-give' 'health' %}">
+				  	<div class="card-body">
+						<div class="content-bottom">
+							<h6 class="card-category text-white opacity-8">Follow to choose help</h6>
+							<h5 class="card-title">Health</h5>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- <a href="{% url 'get-or-give' 'food' %}" class="refugeesHelper-card-container mb-3 mb-sm-0">
+				<div class="card refugeesHelper-card">
+					<div class="card-body">
+						<h4 class="card-title text-success">
+							Food
+						</h4>
+						<h6 class="card-subtitle mb-3 text-black">
+							Get or give some food.
+						</h6>
+    					<p class="card-text text-black">
+							Complete meals, hot meals, cold meals, hot drinks, cold drinks...
+						</p>
+					</div>
+				</div>
 				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
 					Food
 				</button>
 			</a>
-			<a href="{% url 'get-or-give' 'house' %}" class="refugeesHelper-button-container">
-				<!-- <div class="refugeesHelper-homepageLink-content">
-					<h2>HOUSE</h2>
-				</div> -->
+			<a href="{% url 'get-or-give' 'house' %}" class="refugeesHelper-card-container mb-3 mb-sm-0">
+				<div class="card refugeesHelper-card">
+					<div class="card-body">
+						<h4 class="card-title text-success">
+							House
+						</h4>
+						<h6 class="card-subtitle mb-3 text-black">
+							Get or give some housing.
+						</h6>
+    					<p class="card-text text-black">
+							Empty apartament, camping, church, refugees site...
+						</p>
+					</div>
+				</div>
 				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
 					House
 				</button>
 			</a>
-			<a href="{% url 'get-or-give' 'health' %}" class="refugeesHelper-button-container">
-				<!-- <div class="refugeesHelper-homepageLink-content">
-					<h2>HEALTH</h2>
-				</div> -->
+			<a href="{% url 'get-or-give' 'health' %}" class="refugeesHelper-card-container">
+				<div class="card refugeesHelper-card">
+					<div class="card-body">
+						<h4 class="card-title text-success">
+							Health
+						</h4>
+						<h6 class="card-subtitle mb-3 text-black">
+							Get or give some health care.
+						</h6>
+    					<p class="card-text text-black">
+							First aid, hospital, free visits, child care...
+						</p>
+					</div>
+				</div>
 				<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
 					Health
 				</button>
-			</a>
+			</a> -->
 		</div>
 	</div>
 {% endblock %}

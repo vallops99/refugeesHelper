@@ -1,26 +1,41 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 	<head>
 		<title>Refugees Helper</title>
 
-		<meta charset='UTF-8'>
-    	<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<meta property='og:url' content='https://refugeesHelper.eu'/>
-		<!-- <meta property='og:image' content='image'/> -->
-		<meta property='og:title' content='Refugees Helper, find your primary needings'/>
-		<meta property='og:description' content='Find your primary needings, if you are escaping from war or something else this will help you finding where to eat'/>
+		<meta property="og:url" content="https://refugeesHelper.eu"/>
+		<!-- <meta property="og:image" content="image"/> -->
+		<meta property="og:title" content="Refugees Helper, find your primary needings"/>
+		<meta property="og:description" content="Find your primary needings, if you are escaping from war or something else this will help you finding where to eat"/>
+
+		<!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
+
+		<!-- GOOGLE FONTS -->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+		<!-- GOOGLE FONTS END -->
 
 		<!-- LIBRARIES -->
-		<script src='{% static "node_modules/jquery/dist/jquery.min.js" %}'></script>
-		<script src='{% static "node_modules/bootstrap/dist/js/bootstrap.min.js" %}'></script>
+		<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+		<script src="{% static 'node_modules/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+		<script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'node_modules/flatpickr/dist/flatpickr.min.js' %}"></script>
+		<script src="{% static 'js/argon/argon-design-system.min.js' %}"></script>
+		<!-- <script src="{% static 'js/argon/plugins/perfect-scrollbar.jquery.min.js' %}" type="text/javascript"></script> -->
+  		<script src="{% static 'js/argon/plugins/moment.min.js' %}"></script>
 		<!-- LIBRARIES END -->
 
 		<!-- STYLES -->
-		<link rel='stylesheet' href='{% static "node_modules/bootstrap/dist/css/bootstrap.min.css" %}'/>
-		<link rel='stylesheet' href='{% static "css/refugeesHelper.css" %}'/>
+		<link href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+		<link href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/refugeesHelper.css' %}" rel="stylesheet" />
+
+		<link href="{% static 'css/argon/argon-design-system.min.css' %}" rel="stylesheet">
 		<!-- STYLES END -->
 
 		{% block head %}
@@ -28,7 +43,7 @@
 	</head>
 	<body>
 		{% csrf_token %}
-		{% include 'includes/navbar.html' %}
+		{% include "includes/navbar.html" %}
 		<div class="container refugessHelper-main">
 			{% block content %}
 			{% endblock %}

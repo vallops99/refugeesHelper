@@ -1,5 +1,8 @@
 import os
 
+GET_HELP = 'get'
+GIVE_HELP = 'give'
+
 CATEGORIES = [
 	'food',
 	'house',
@@ -13,8 +16,8 @@ CHOICES_CATEGORIES = [
 ]
 
 TYPE_OF_HELP = [
-	'get',
-	'give'
+	GET_HELP,
+	GIVE_HELP
 ]
 
 MAPBOX_TOKEN = os.getenv('MAPBOX_TOKEN', None)

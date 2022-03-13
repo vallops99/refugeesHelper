@@ -3,19 +3,18 @@
 @import '_constants.less';
 
 html {
-	width: 100%;
+	height: fit-content;
 	min-height: 100%;
-	height: 100%;
 
 	body {
-		width: 100%;
 		height: 100%;
+		min-height: 100vh;
 
-		background-image: linear-gradient(@UKRAIN_BLUE, @UKRAIN_YELLOW);
+		// background-image: linear-gradient(@UKRAIN_BLUE, @UKRAIN_YELLOW);
 
 		.refugessHelper-main {
 			width: 100%;
-			// height:	~'calc(100% - 76px)';
+			min-height:	~'calc(100% - 76px)';
 			height: ~'calc(100% - 76px)';
 
 			padding: 1rem 0;
@@ -27,15 +26,14 @@ html {
 		}
 
 		.refugeesHelper-title {
-			width: 80%;
-			height: 200px;
+			width: 100%;
+			min-height: 200px;
 	
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 
-			background-color: rgba(255, 255, 255, .3);
 			color: black;
 
 			&.no-capitalize {
@@ -62,22 +60,21 @@ html {
 			height: fit-content;
 	
 			display: flex;
+			justify-content: space-evenly;
 	
 			margin-top: 1rem;
 			padding: 1rem;
 	
-			background-color: rgba(255,255,255,0.3);
-	
-			.refugeesHelper-button-container {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-	
-				text-decoration: none;
+			.card {
+				width: 100%;
+				max-width: 300px;
 
-				.refugeesHelper-button {
-					width: 150px;
-					margin: 16px;
+				@media (min-width: @MEDIUM) {
+					margin-left: 1rem;
+
+					&:first-of-type {
+						margin-left: 0;
+					}
 				}
 			}
 		}

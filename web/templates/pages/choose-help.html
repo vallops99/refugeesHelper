@@ -5,19 +5,27 @@
 		<div class="refugeesHelper-title refugeesHelper-choose-title">
 			<h1>{{ category }}</h1>
 		</div>
-		<div class="flex-column flex-sm-row align-items-center align-items-sm-start justify-content-start justify-content-sm-evenly refugeesHelper-actions">
-			<div class="refugeesHelper-help refugeesHelper-button-container">
+		<div class="flex-column flex-sm-row align-items-center refugeesHelper-actions">
+			<div class="card card-blog card-background" data-animation="zooming">
+				<div class="full-background" style="background-image: url('/static/images/get-card.jpg')"></div>
 				<a href="{% url 'handle_help' category 'get' %}">
-					<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
-						Get Help
-					</button>
+				  	<div class="card-body">
+						<div class="content-bottom">
+							<h6 class="card-category text-white opacity-8">Follow to choose help</h6>
+							<h5 class="card-title">Get help</h5>
+						</div>
+					</div>
 				</a>
 			</div>
-			<div class="refugeesHelper-help refugeesHelper-button-container">
+			<div class="card card-blog card-background" data-animation="zooming">
+				<div class="full-background" style="background-image: url('/static/images/give-card.jpg')"></div>
 				<a href="{% url 'handle_help' category 'give' %}">
-					<button type="button" class="btn btn-success btn-lg refugeesHelper-button">
-						Give Help
-					</button>
+				  	<div class="card-body">
+						<div class="content-bottom">
+							<h6 class="card-category text-white opacity-8">Follow to choose help</h6>
+							<h5 class="card-title">Give help</h5>
+						</div>
+					</div>
 				</a>
 			</div>
 		</div>

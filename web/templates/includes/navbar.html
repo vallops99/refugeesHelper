@@ -1,33 +1,49 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="{% url 'homepage' %}">
-			<img src="{% static 'images/logo.jpg' %}" width="75" height="50"/>
-		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-default">
+	<div class="container">
+		<a class="navbar-brand mt-0" href="{% url 'homepage' %}">
+			<img class="" src="{% static 'images/logo.jpg' %}">
+	 	</a>
+	  	<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-			<div class="offcanvas-header">
-				<a class="navbar-brand" href="{% url 'homepage' %}">
-					<img src="{% static 'images/logo.jpg' %}" width="75" height="50"/>
-				</a>
-				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+	  	</button>
+	  	<div class="navbar-collapse collapse" id="navbar-default">
+			<div class="navbar-collapse-header">
+		  		<div class="row">
+					<div class="col-6 collapse-brand">
+			  			<a href="{% url 'homepage' %}">
+							<img src="{% static 'images/logo.jpg' %}">
+			  			</a>
+					</div>
+					<div class="col-6 collapse-close">
+			  			<button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
+							<span></span>
+							<span></span>
+			  			</button>
+					</div>
+		  		</div>
 			</div>
-			<div class="offcanvas-body">
-				<ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-					<li class="nav-item">
-						<a class="nav-link" aria-current="page" href="{% url 'get-or-give' 'food' %}">Food</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'get-or-give' 'house' %}">House</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'get-or-give' 'health' %}">Health</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+			<ul class="navbar-nav ml-lg-auto">
+		  		<li class="nav-item">
+					<a class="nav-link nav-link-icon" href="{% url 'get-or-give' 'food' %}">
+						<i class="fa-solid fa-bread-slice"></i>
+			  			<span class="nav-link-inner--text">Food</span>
+					</a>
+		  		</li>
+		  		<li class="nav-item">
+					<a class="nav-link nav-link-icon" href="{% url 'get-or-give' 'house' %}">
+						<i class="fa-solid fa-house-user"></i>
+						<span class="nav-link-inner--text">House</span>
+					</a>
+		  		</li>
+		  		<li class="nav-item">
+					<a class="nav-link nav-link-icon" href="{% url 'get-or-give' 'health' %}">
+						<i class="fa-solid fa-stethoscope"></i>
+			  			<span class="nav-link-inner--text">Health<span>
+					</a>
+		  		</li>
+			</ul>
+	  	</div>
 	</div>
 </nav>

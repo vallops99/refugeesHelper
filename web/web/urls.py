@@ -25,7 +25,9 @@ from .views import (
 urlpatterns = [
     path('f3sa0l/', admin.site.urls),
     path('', homepage, name = 'homepage'),
-    path('<str:category>', get_or_give, name = 'get-or-give'),
-    path('<str:category>/<str:help_type>', handle_help, name = 'handle_help'),
+    path('journey/<str:category>', get_or_give, name = 'get-or-give'),
+    path('journey/<str:category>/<str:help_type>', handle_help, name = 'handle_help'),
+
+    # POST
     path('give-help', give_help, name = 'give-help')
 ]

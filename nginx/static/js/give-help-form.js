@@ -1,18 +1,15 @@
 "use strict";
 
-function maskPhoneNumberInput() {
-	$("input#user-phone-number").on("input", function () {
-		let newValue = '';
-		[...this.value.split('-')].forEach((letter, index) => {
-			newValue += letter;
-			if (!((index + 1) % 3)) {
-				newValue += '-';
-			}
-		});
-		this.value = newValue;
-	})
-}
+(function() {
+	new Choices('#user-subcategory', {
+    	search: false,
+	});
 
-// (function() {
-// 	maskPhoneNumberInput();
-// })();
+	if (window.is_form_submitted) {
+		if (window.form_code) {
+			$('#give-form-modal-error').modal();
+		} else {
+			$('#give-form-modal-success').modal();
+		}
+	}
+})();

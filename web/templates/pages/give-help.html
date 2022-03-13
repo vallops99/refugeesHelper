@@ -9,52 +9,125 @@
 	<div class="refugeesHelper-give-help">
 		<div class="refugeesHelper-title no-capitalize">
 			<h1>Tell us how can you provide {{ category }}</h1>
-			<p>
+			<p class="text-center px-3">
 				We will double check the form and then publish your help-giving place, if pertinent.
 			</p>
-			<p>
+			<p class="text-center px-3">
 				We will need your contacts in order to double check, so please leave real phone number and email.
 			</p>
 		</div>
 		<div class="refugeesHelper-actions refugeesHelper-give-help-form">
-			<form action="{% url 'give-help' %}">
-				<div class="mb-3">
-					<label for="user-name" class="form-label">Name</label>
-					<input type="text" class="form-control" id="user-name" aria-describedby="Please, provide your real name">
-				</div>
-				<div class="mb-3">
-					<label for="user-surname" class="form-label">Surname</label>
-					<input type="text" class="form-control" id="user-surname" aria-describedby="Please, provide your real surname">
-				</div>
-				<div class="mb-3">
-					<label for="user-email" class="form-label">Email address</label>
-					<input type="email" class="form-control" id="user-email" aria-describedby="Please, provide your real email">
-					<div id="emailHelp" class="form-text">
-						The email will be used from us to contact you in case we need to confirm your help-giving place. Later on, will be used by the users whom need help to check if you're available to give help.
+			<form action="{% url 'give-help' %}" method="POST">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-name" class="form-label mb-3">Name</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user-name" id="user-name" required aria-describedby="Please, provide your real name">
+						</div>
 					</div>
 				</div>
-				<div class="mb-3">
-					<label for="user-phone-number" class="form-label">Phone number</label>
-					<input type="tel" class="form-control" id="user-phone-number" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocorret="on">
-					<div id="phoneHelp" class="form-text">
-						Insert your phone number, min
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-surname" class="form-label">Surname</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user-surname" id="user-surname" required aria-describedby="Please, provide your real surname">
+						</div>
 					</div>
 				</div>
-				<div class="mb-3">
-					<label for="user-subcategory" class="form-label">Subcategory</label>
-					<select id="user-subcategory" class="form-select" aria-label="Choose a subcategory of {{ category }}">
-						{% for category in subcategories %}
-							<option value="{{ category.subcategory }}">{{ category.subcategory }}</option>
-						{% endfor %}
-						<option value="other">Other...</option>
-					</select>			
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-email" class="form-label">Email address</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group mb-2">
+							<input type="email" class="form-control" name="user-email" id="user-email" required aria-describedby="Please, provide your real email">
+						</div>
+					</div>
+					<div class="offset-sm-3 col-sm-9">
+						<div id="emailHelp" class="form-text mb-3">
+							The email will be used to confirm your help-giving place. Later on, will be used by the users whom need help to check if you're available to give help.
+						</div>
+					</div>
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-phone-number" class="form-label">Phone number</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group mb-2">
+							<input type="tel" class="form-control" name="user-phone" id="user-phone-number" required autocorret="on">
+						</div>
+					</div>
+					<div class="offset-sm-3 col-sm-9">
+						<div id="phoneHelp" class="form-text mb-3">
+							Insert your phone number, us and needing people could be using it to contact you.
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-state" class="form-label">State</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user-state" id="user-state" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-province" class="form-label">Province/Region</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user-province" id="user-province" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-address" class="form-label">Address</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user-address" id="user-address" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 align-self-center text-center">
+						<label for="user-subcategory" class="form-label">Subcategory</label>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+							<select id="user-subcategory" class="form-select" data-trigger name="user-subcategory" aria-label="Choose a subcategory of {{ category }}">
+								{% for category in subcategories %}
+									<option value="{{ category.subcategory }}">{{ category.subcategory }}</option>
+								{% endfor %}
+								<option value="other">Other...</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<input type="text" value="{{ category }}" name="user-category" hidden/>
+				<div class="w-100 d-flex justify-content-center mt-3">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>
 {% endblock %}
 
 {% block script %}
+	<script>
+		window.form_issued = parseInt('{{ form_issued }}');
+		window.form_code = parseInt('{{ form_code }}');
+	</script>
+	<script src="{% static 'js/argon/plugins/choices.min.js' %}"></script>
 	<script src="{% static 'js/give-help-form.js' %}"></script>
 {% endblock %}

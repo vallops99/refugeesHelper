@@ -1,0 +1,21 @@
+.refugeesHelper-choose-help {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.refugeesHelper-choose-help .refugeesHelper-choose-title {
+  text-transform: capitalize;
+}
+.refugeesHelper-choose-help .refugeesHelper-actions .refugeesHelper-card-container .refugeesHelper-card {
+  height: 100px;
+}
+.refugeesHelper-choose-help .refugeesHelper-actions .refugeesHelper-card-container .refugeesHelper-card .card-body {
+  justify-content: center;
+  align-items: center;
+}
+.refugeesHelper-choose-help .refugeesHelper-actions .refugeesHelper-card-container .refugeesHelper-card .card-body .card-title {
+  margin-bottom: 0;
+}
