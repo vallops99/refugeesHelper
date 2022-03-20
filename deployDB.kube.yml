@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: refugeeshelper-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: refugeeshelper-postgres-volume
+  labels:
+    type: local
+    app: refugeeshelper-db
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/postgres"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: refugeeshelper-postgres-volume-claim
+  labels:
+    app: refugeeshelper-db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: refugeeshelper-db
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: refugeeshelper-db
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: refugeeshelper-db
+    spec:
+      containers:
+        - name: refugeeshelper-postgres
+          image: valeriodocker/refugeeshelper_postgresql:main
+          imagePullPolicy: Always
+          envFrom:
+          - secretRef:
+              name: cesrvdafdw3-asdv-e21dqw-bf40-32fvwaadvf
+              optional: false
+          ports:
+          - containerPort: 5432
+          stdin: true
+          tty: true
+          volumeMounts:
+            - name: postgredb-volume-mount
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgredb-volume-mount
+          persistentVolumeClaim:
+            claimName: refugeeshelper-postgres-volume-claim
+
+      imagePullSecrets:
+        - name: valeriodocker-docker-registry

@@ -74,14 +74,5 @@ spec:
           - containerPort: 80
           stdin: true
           tty: true
-        - name: refugeeshelper-postgres
-          image: valeriodocker/refugeeshelper_postgresql:main
-          imagePullPolicy: Always
-          envFrom:
-          - secretRef:
-              name: cesrvdafdw3-asdv-e21dqw-bf40-32fvwaadvf
-              optional: false
-          ports:
-          - containerPort: 5432
       imagePullSecrets:
         - name: valeriodocker-docker-registry
