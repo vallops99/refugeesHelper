@@ -1,5 +1,4 @@
 from django.views.decorators.http import require_safe, require_POST
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 
@@ -31,7 +30,7 @@ def get_or_give(request, category):
 	)
 
 @require_safe
-def handle_help(request, category, help_type):
+def handle_help(request, category, help_type, **kwargs):
 	category = category.lower()
 	help_type = help_type.lower()
 
@@ -46,13 +45,16 @@ def handle_help(request, category, help_type):
 		mapbox_token = settings.MAPBOX_TOKEN
 	else:
 		subcategories = TypeOfHelp.objects.filter(category=category)
-
-	print(request.session)
-	if 'form_issued' not in request.session:
-		request.session.form_issued = '0'
 	
-	if 'form_code' not in request.session:
-		request.session.form_code = '0'
+	is_form_issued = 0
+	has_form_errors = 0
+	if 'is_form_issued' in request.session:
+		is_form_issued = request.session['is_form_issued']
+	if 'has_form_errors' in request.session:
+		has_form_errors = request.session['has_form_errors']
+
+	request.session['is_form_issued'] = 0
+	request.session['has_form_errors'] = 0
 
 	template = 'pages/%s-help.html' % help_type
 
@@ -68,8 +70,8 @@ def handle_help(request, category, help_type):
 
 			# Give help context
 			'subcategories': subcategories,
-			'form_issued': request.session.form_issued,
-			'form_code': request.session.form_code
+			'is_form_issued': 1 if is_form_issued else 0,
+			'has_form_errors': 1 if has_form_errors else 0
 		}
 	)
 
@@ -85,36 +87,36 @@ def give_help(request):
 	category = request.POST.get('user-category', None)
 	subcategory = request.POST.get('user-subcategory', None)
 
-	request.session.form_issued = '1'
-	request.session.form_code = '0'
+	request.session['is_form_issued'] = True
+	request.session['has_form_errors'] = False
 
-	if not (name and surname and email and phone and state and province and address and category and subcategory):
-		request.session.form_code = '1'
+	if (
+		not (name and surname and email and phone and state and province and address and category and subcategory)
+		and category not in settings.CATEGORIES
+	):
+		request.session['has_form_errors'] = True
+
+	subcategory = TypeOfHelp.objects.get(subcategory=subcategory)
+
+	if not subcategory.category == category:
+		request.session['has_form_errors'] = True
 	
-	if category not in settings.CATEGORIES:
-		request.session.form_code = '1'
+	if not request.session['has_form_errors']:
+		try:
+			HelpGiver.objects.create(
+				name = name,
+				surname = surname,
+				email = email,
+				phone_number = phone,
+				type_of_help = subcategory,
+				state = state,
+				province = province,
+				address = address,
+				is_verified = False
+			)
+		except Exception:
+			request.session['has_form_errors'] = True
 
-	subcategory = TypeOfHelp.objects.filter(subcategory=subcategory)
-
-	if len(subcategory) and not subcategory[0].category == category:
-		request.session.form_code = '1'
-
-	try:
-		HelpGiver.objects.create(
-			name = name,
-			surname = surname,
-			email = email,
-			phone_number = phone,
-			type_of_help = subcategory,
-			state = state,
-			province = province,
-			address = address,
-			is_verified = False
-		)
-	except Exception as err:
-		request.session.form_code = '1'
-
-	print('been there, done that')
 	return redirect(
 		'handle_help',
 		category = category,

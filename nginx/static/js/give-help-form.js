@@ -5,8 +5,8 @@
     	search: false,
 	});
 
-	if (window.is_form_submitted) {
-		if (window.form_code) {
+	if (window.isFormIssued) {
+		if (window.hasFormErros) {
 			$('#give-form-modal-error').modal();
 		} else {
 			$('#give-form-modal-success').modal();

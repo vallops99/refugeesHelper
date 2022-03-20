@@ -8,7 +8,9 @@
 {% block content %}
 	<div class="refugeesHelper-give-help">
 		<div class="refugeesHelper-title no-capitalize">
-			<h1>Tell us how can you provide {{ category }}</h1>
+			<h2 class="display-3">
+				Tell us how can you provide {{ category }}
+			</h2>
 			<p class="text-center px-3">
 				We will double check the form and then publish your help-giving place, if pertinent.
 			</p>
@@ -50,7 +52,7 @@
 					</div>
 					<div class="offset-sm-3 col-sm-9">
 						<div id="emailHelp" class="form-text mb-3">
-							The email will be used to confirm your help-giving place. Later on, will be used by the users whom need help to check if you're available to give help.
+							The email will be used to confirm your help-giving place. Later on, will be used by the users that need help to contact you.
 						</div>
 					</div>
 				</div>
@@ -65,7 +67,7 @@
 					</div>
 					<div class="offset-sm-3 col-sm-9">
 						<div id="phoneHelp" class="form-text mb-3">
-							Insert your phone number, us and needing people could be using it to contact you.
+							Insert your phone number, us and needing people could use it to contact you.
 						</div>
 					</div>
 				</div>
@@ -121,12 +123,15 @@
 			</form>
 		</div>
 	</div>
+
+	{% include 'modals/give-form-modal-success.html' %}
+	{% include 'modals/give-form-modal-error.html' %}
 {% endblock %}
 
 {% block script %}
 	<script>
-		window.form_issued = parseInt('{{ form_issued }}');
-		window.form_code = parseInt('{{ form_code }}');
+		window.isFormIssued = parseInt('{{ is_form_issued }}');
+		window.hasFormErros = parseInt('{{ has_form_errors }}');
 	</script>
 	<script src="{% static 'js/argon/plugins/choices.min.js' %}"></script>
 	<script src="{% static 'js/give-help-form.js' %}"></script>
