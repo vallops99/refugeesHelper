@@ -1,0 +1,83 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: refugeeshelper.eu
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: refugeeshelper.eu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: refugeeshelper-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - refugeeshelper.eu
+    secretName: refugeeshelper-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: refugeeshelper-service
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: refugeeshelper-deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: refugeeshelper-deployment
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: refugeeshelper-deployment
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: refugeeshelper-deployment
+    spec:
+      containers:
+        - name: refugeeshelper-web
+          image: valeriodocker/refugeeshelper_web:main
+          imagePullPolicy: Always
+          stdin: true
+          tty: true
+          envFrom:
+          - secretRef:
+              name: refugeeshelper-prod-env
+              optional: false
+          ports:
+          - containerPort: 8000
+          command: ["/usr/src/app/run_django.sh"]
+        - name: refugeeshelper-nginx
+          image: valeriodocker/refugeeshelper_nginx:main
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
+          stdin: true
+          tty: true
+        - name: refugeeshelper-nginx
+          image: valeriodocker/refugeeshelper_postgresql:main
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5432
+      imagePullSecrets:
+        - name: valeriodocker-docker-registry
