@@ -36,7 +36,7 @@ jobs:
           build-args: |
             ENV=prod
           push: true
-          tags: latest
+          tags: ${{ steps.meta_nginx.outputs.tags }}
           labels: ${{ steps.meta_nginx.outputs.labels }}
 
       - name: Extract metadata (tags, labels) for Docker
@@ -50,5 +50,5 @@ jobs:
         with:
           context: ./web
           push: true
-          tags: latest
+          tags: ${{ steps.meta_web.outputs.tags }}
           labels: ${{ steps.meta_web.outputs.labels }}
