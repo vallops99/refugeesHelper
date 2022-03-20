@@ -34,7 +34,7 @@ jobs:
         with:
           context: ./nginx
           build-args: |
-            ENV=production
+            ENV=prod
           push: true
           tags: ${{ steps.meta_nginx.outputs.tags }}
           labels: ${{ steps.meta_nginx.outputs.labels }}
