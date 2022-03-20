@@ -25,12 +25,12 @@ jobs:
       
       - name: Extract metadata (tags, labels) for Docker
         id: meta_nginx
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v2
         with:
           images: valeriodocker/refugeeshelper_nginx
       
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           context: .
           push: true
@@ -39,12 +39,12 @@ jobs:
       
       - name: Extract metadata (tags, labels) for Docker
         id: meta_web
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v2
         with:
           images: valeriodocker/refugeeshelper_web
       
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           context: .
           push: true
