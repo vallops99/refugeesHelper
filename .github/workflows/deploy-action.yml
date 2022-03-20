@@ -1,7 +1,6 @@
 name: Deployment
 
 concurrency: production
-environment: production
 
 on:
   push:
