@@ -33,6 +33,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./nginx
+          build-args:
+            ENV: production
           push: true
           tags: ${{ steps.meta_nginx.outputs.tags }}
           labels: ${{ steps.meta_nginx.outputs.labels }}
