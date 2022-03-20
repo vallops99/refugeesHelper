@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class TypeOfHelp(models.Model):
 	category = models.CharField(choices = settings.CHOICES_CATEGORIES, default = 'food', max_length = 6)
 
-	subcategory = models.CharField(max_length = 50, unique = True, blank = True)
+	subcategory = models.CharField(max_length = 50, unique = True, blank = True, null = True)
 
 	def __str__(self):
 		return '%s-%s' % (self.category, self.subcategory)
