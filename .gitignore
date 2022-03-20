@@ -103,6 +103,7 @@ celerybeat-schedule
 .env
 .venv
 .env-prod
+.env.yml
 env/
 venv/
 ENV/
@@ -126,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# SSL certificate
+cert/
