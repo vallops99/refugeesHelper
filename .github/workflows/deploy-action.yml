@@ -64,5 +64,5 @@ jobs:
         with:
           context: ./postgres
           push: true
-          tags: ${{ steps.meta_postgres.outputs.tags }}
-          labels: ${{ steps.meta_postgres.outputs.labels }}
+          tags: ${{ steps.meta_postgresql.outputs.tags }}
+          labels: ${{ steps.meta_postgresql.outputs.labels }}
