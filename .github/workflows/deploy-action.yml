@@ -27,7 +27,7 @@ jobs:
         id: meta_nginx
         uses: docker/metadata-action@v2
         with:
-          images: valeriodocker/refugeeshelper_nginx
+          images: valeriodocker/refugeeshelper_nginx:latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
@@ -43,7 +43,7 @@ jobs:
         id: meta_web
         uses: docker/metadata-action@v2
         with:
-          images: valeriodocker/refugeeshelper_web
+          images: valeriodocker/refugeeshelper_web:latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
