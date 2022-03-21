@@ -26,8 +26,6 @@ services:
   nginx:
     build:
       context: ./nginx
-      args:
-        ENV: dev
 
     depends_on:
       - web
