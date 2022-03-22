@@ -130,3 +130,6 @@ dmypy.json
 
 # SSL certificate
 cert/
+
+# Internal tool
+create-secrets.sh
