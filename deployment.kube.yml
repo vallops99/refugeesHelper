@@ -62,7 +62,7 @@ spec:
           tty: true
           envFrom:
           - secretRef:
-              name: cesrvdafdw3-asdv-e21dqw-bf40-32fvwaadvf
+              name: refugeeshelper-secrets
               optional: false
           ports:
           - containerPort: 8000

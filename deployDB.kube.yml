@@ -64,7 +64,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
           - secretRef:
-              name: cesrvdafdw3-asdv-e21dqw-bf40-32fvwaadvf
+              name: refugeeshelper-secrets
               optional: false
           ports:
           - containerPort: 5432
