@@ -207,7 +207,6 @@ function startFollowingUser(map, forceFly = false) {
 
 function stopFollowingUser(map) {
 	if (!window.followingIdHandler) return;
-	console.log(calcScalarMovement(map));
 	if (calcScalarMovement(map) < minConsideredMovement) return;
 
 	navigator.geolocation.clearWatch(window.followingIdHandler);
@@ -216,7 +215,6 @@ function stopFollowingUser(map) {
 }
 
 function onMapClick(event, map) {
-	console.log(event);
 	let poi = map.queryRenderedFeatures(event.point).filter(
 		val => val.sourceLayer === "poi_label"
 	);
