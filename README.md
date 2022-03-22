@@ -1,7 +1,7 @@
 # refugeesHelper
- The project is under development, it isn't online yet. <br>
- It will be very soon with a really simple and basic UI/UX. <br>
- Domain that will be used: refugeesHelper.eu
+ Beta version of the project is online.
+
+ [refugeeshelper.eu](https://refugeeshelper.eu)
 ## WebApp that helps people get or give primary resources: Food, house and health
 The app is completely open source, this means that anyone can fork and start
 its own app or just give suggestion, raise issues or develop new functionality
@@ -24,14 +24,14 @@ Through a map you can see the supermarkets near to you, <br>
 if you give the geolocation permissions to the browser. <br>
 Otherwise you can navigate the map, start point: Center Europe.
 
-### Give [TODO]
+### Give
 The concept is that through a form you can submit a new location where needing
 people can find food or beverage for free.
 After the submit of the form the new locations will be under review, and only when
 accepted by an admin will be rendered.
 (Theorically we can push new data to Mapbox Studio in order to leave the filter by tiles work to it).
 
-## House [TODO]
+## House
 ### Get
 Through a map you can see all the hotel, BnB and this kind of places near to you, <br>
 if you give the geolocation permissions to the browser. <br>
