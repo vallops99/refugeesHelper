@@ -38,6 +38,17 @@
 		<link href="{% static 'css/argon/argon-design-system.min.css' %}" rel="stylesheet">
 		<!-- STYLES END -->
 
+		<!-- ANALYTICS -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-QQMJNE6CNG"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', '{{ ANALYTICS_ID }}');
+		</script>
+		<!-- ANALYTICS END -->
+
 		{% block head %}
     	{% endblock %}
 	</head>
