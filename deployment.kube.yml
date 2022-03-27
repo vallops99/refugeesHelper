@@ -70,6 +70,7 @@ spec:
         - name: refugeeshelper-nginx
           image: valeriodocker/refugeeshelper_nginx:main
           imagePullPolicy: Always
+          args: ["ENV=prod"]
           ports:
           - containerPort: 80
           stdin: true

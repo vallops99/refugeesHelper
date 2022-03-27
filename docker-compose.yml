@@ -26,6 +26,8 @@ services:
   nginx:
     build:
       context: ./nginx
+      args:
+        ENV: local
 
     depends_on:
       - web
@@ -38,6 +40,9 @@ services:
 
     networks:
       - app_network
+
+    links:
+      - web:localhost
 
     restart: always
 
