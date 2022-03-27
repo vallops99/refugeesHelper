@@ -1,37 +1,12 @@
 "use strict";
 
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+// Constant that let us understand when the user is exploring and we must stop
+// following is geo position.
 const minConsideredMovement = 130;
-// [TODO] Find a prettier way
-// Weird stuff, but I hadn't find a quickest way of calculating the movement
-// of the user over the map to understand when the "where I am point" is
-// near to be out of map.
-const coefficientsOfMovement = [
-	1,       // 0 -> Zoom value
-	2,       // 1
-	4,       // 2
-	8,       // 3
-	16,      // 4
-	32,      // 5
-	64,      // 6
-	128,     // 7
-	256,     // 8
-	312,     // 9
-	624,     // 10
-	1248,    // 11
-	2496,    // 12
-	4992,    // 13
-	9984,    // 14
-	19968,   // 15
-	39936,   // 16
-	79872,   // 17
-	159744,  // 18
-	319488,  // 19
-	638976,  // 20
-	1277952, // 21
-	2555904  // 22
-];
 
+
+// Mapbox custom button used to let the user re-center the map with its position.
 class MapboxButtonControl {
 	constructor({
 		className = '',
@@ -75,7 +50,7 @@ class MapboxButtonControl {
 // The styles are quick custom styles created on Mapbox Studio, they are 3
 // Food, Health, House.
 function createMap() {
-	const map = new mapboxgl.Map({
+	return new mapboxgl.Map({
 	  container: 'map',
 	  style: mapboxgl.customMapStyle,
 	  center: [10, 57],
@@ -97,14 +72,18 @@ function createMap() {
 	).addControl(
 		new mapboxgl.FullscreenControl(),
 		'bottom-right'
-	);
-
-	map.on('click', (event) => onMapClick(event, map));
-	map.on('drag', () => stopFollowingUser(map));
-
-	return map;
+	).on(
+		'click',
+		onMapClick
+	).on(
+		'drag',
+		(event) => stopFollowingUser(event.target)
+	).on('load', (event) => {
+		startFollowingUser(event.target, true);
+		event.target.off('load')
+	});
 }
-
+ 
 function setUserPositionOnMap(map, newCoords, force = false) {
 	const constantId = 'user-marker-id';
 
@@ -127,9 +106,9 @@ function setUserPositionOnMap(map, newCoords, force = false) {
 	// Possible solution:
 	// ((module of (this.centerLong - nowLong) + module of (this.centerLat - nowLat)) > 1)
 	let zoom =  map.getZoom();
-	if (!map.refugeesAlreadyFlew) {
+	if (!map.userAlreadyFlew) {
 		zoom = 15;
-		map.refugeesAlreadyFlew = true;
+		map.userAlreadyFlew = true;
 	}
 
 	const coefficientOfMovement = calcScalarMovement(map);
@@ -148,8 +127,8 @@ function setUserPositionOnMap(map, newCoords, force = false) {
 function calcScalarMovement(map) {
 	const currentPosition = map.getCenter();
 
-	// Zoom could be decimal, so we round it to get an index
-	const coeff = coefficientsOfMovement[Math.round(map.getZoom())];
+	// Coefficient is 2 power current zoom;
+	const coeff = 2**map.getZoom();
 
 	let longDiff = currentPosition.lng * coeff - parseFloat(map.lastUserCoords[0]) * coeff;
 	longDiff = (longDiff < 0) ? longDiff * -1 : longDiff;
@@ -182,7 +161,7 @@ function startFollowingUser(map, forceFly = false) {
 		maximumAge: 0
 	};
 
-	window.followingIdHandler = navigator.geolocation.watchPosition((position) => {
+	map.followingIdHandler = navigator.geolocation.watchPosition((position) => {
 		if (!('coords' in position)) return;
 
 		window.sessionStorage.setItem(
@@ -206,15 +185,16 @@ function startFollowingUser(map, forceFly = false) {
 }
 
 function stopFollowingUser(map) {
-	if (!window.followingIdHandler) return;
+	if (!map.followingIdHandler) return;
 	if (calcScalarMovement(map) < minConsideredMovement) return;
 
-	navigator.geolocation.clearWatch(window.followingIdHandler);
+	navigator.geolocation.clearWatch(map.followingIdHandler);
 
-	window.followingIdHandler = null;
+	map.followingIdHandler = null;
 }
 
-function onMapClick(event, map) {
+function onMapClick(event) {
+	const map = event.target;
 	let poi = map.queryRenderedFeatures(event.point).filter(
 		val => val.sourceLayer === "poi_label"
 	);
@@ -232,7 +212,5 @@ function onMapClick(event, map) {
 }
 
 (function() {
-	const map = createMap();
-
-	startFollowingUser(map, true);
+	createMap();
 })();
