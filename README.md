@@ -1,7 +1,6 @@
 # refugeesHelper
- Beta version of the project is online.
+Project currently offline.
 
- [refugeeshelper.eu](https://refugeeshelper.eu)
 ## WebApp that helps people get or give primary resources: Food, house and health
 The app is completely open source, this means that anyone can fork and start
 its own app or just give suggestion, raise issues or develop new functionality
