@@ -68,7 +68,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'web.context_processor.processor.analytics'
             ],
         },
     },
@@ -80,11 +79,11 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if os.getenv('POSTGRES_DB_NAME', None):
+if os.getenv('POSTGRES_DB', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['POSTGRES_DB_NAME'],
+            'NAME': os.environ['POSTGRES_DB'],
             'USER': os.environ['POSTGRES_USER'],
             'PASSWORD': os.environ['POSTGRES_PASSWORD'],
             'HOST': os.environ['POSTGRES_SERVICE'],

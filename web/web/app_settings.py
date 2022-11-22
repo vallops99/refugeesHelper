@@ -27,5 +27,3 @@ MAPSTYLE_BY_CATEGORY = {
 	'house': 'mapbox://styles/vfarrotti/cl0dxz6yc002714koas5d74m0',
 	'health': 'mapbox://styles/vfarrotti/cl0dmg2w6000314pm77jn94xr'
 }
-
-ANALYTICS_ID = os.getenv('ANALYTICS_ID', None)
