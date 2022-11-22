@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.9-alpine
 
 ENV AUTHOR valerio.farrotti@gmail.com
 ENV UPDATED 20220301

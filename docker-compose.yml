@@ -38,7 +38,7 @@ services:
         restart: always
 
     postgres:
-        build: ./postgres
+        image: postgres:15.1
 
         env_file:
             - .env
