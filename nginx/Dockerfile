@@ -7,14 +7,12 @@ ARG ENV
 
 RUN apk add yarn
 
-RUN rm /etc/nginx/conf.d/default.conf
+WORKDIR /usr/src/app/
 
+RUN rm /etc/nginx/conf.d/default.conf
 ADD etc/default.${ENV}.conf /etc/nginx/conf.d/default.conf
 
-ADD static/ /usr/src/app/static/
-
-WORKDIR /usr/src/app/static/
+COPY ./package.json /usr/src/app/package.json
+COPY ./yarn.lock /usr/src/app/yarn.lock
 
 RUN yarn install
-
-WORKDIR /usr/src/app/
